@@ -1,0 +1,263 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+.navbar {
+  background: crimson;
+  font-family: Calibri;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.navbar ul {
+  cursor: pointer;
+  display: flex;
+  flex: 2;
+  justify-content: center;
+  padding: 0 80px;
+  margin: 0px;
+}
+.navbar li {
+  padding: 5px 15px;
+  margin: 0 15px;
+  display: inline-block;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  padding: 3px;
+  margin: 3px;
+  display: block;
+  transition: background-color 0.3s ease, border-radius 0.3s ease;
+}
+.navbar a:hover {
+  background-color: rgb(190, 8, 44);
+  border-radius: 5px;
+}
+ul li {
+  cursor: pointer;
+  padding: 5px 10px;
+  display: inline-block;
+  background-color: crimson;
+  color: white;
+  margin: 0 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+ul li:hover {
+  background-color: rgb(190, 8, 44);
+}
+
+.navdiv {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  height: 55px;
+}
+.navtext {
+  cursor: pointer;
+  flex: 1;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left;
+  padding: 10px;
+  background-color:none;
+}
+
+.text{
+  display: block;
+  justify-content: left;
+  padding: 10px 50px;
+  background-color: #f4f4f4;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.account-btn {
+  flex: 0;
+  text-align: right;
+  background-color: crimson;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.account-btn:hover {
+  background-color: rgb(129, 1, 26);
+  transform: scale(1.05);
+}
+.cetagory-btn {
+  display: flex;
+  justify-content: left;
+  background-color: #f4f4f4;
+  gap: 20px;
+  color: white;
+  padding: 20px 55px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.cetagory-btn button {
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.cetagory-btn button:hover {
+  background-color: rgb(190, 8, 44);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cetagory-btn button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.search-bar {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  transition: border 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: orangered;
+}
+
+.search-bar button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: rgb(190, 8, 44);
+  transform: scale(1.05);
+}
+
+.book-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 15px;
+  scroll-behavior: smooth;
+  cursor: grab;
+}
+.book-container:active {
+  cursor: grabbing;
+}
+
+.book-container::-webkit-scrollbar {
+  height: 8px;
+  display: none;
+}
+
+.book-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.book-card {
+  background-color: rgb(246, 247, 248);
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  width: 150px;
+  height: 200px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 0 0 auto;
+}
+
+.book-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.book-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.book-card p {
+  margin: 5px 0;
+}
+
+.book-description {
+  font-size: 14px;
+  color: #555;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.book-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.book-section {
+  display: flex;
+  justify-content: center;  
+  align-items: top;     
+  height: 100h;           
+}
+.material-icons {
+  vertical-align: middle;
+  margin-right: 8px;
+  font-size: 18px;  
+}
+
+.action-btn i {
+  font-size: 20px;
+}
+
+
+
+@media (max-width: 768px) {
+  .navbar ul {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+  .search-bar {
+      flex-direction: column;
+  }
+  .search-bar button {
+      margin-left: 0;
+      margin-top: 10px;
+  }
+  .book-card {
+      width: 100px;
+      height: auto;
+  }
+}
