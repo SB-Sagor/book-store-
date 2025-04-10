@@ -1,11 +1,17 @@
-# Use the official PHP image with Apache
+# Use official PHP with Apache
 FROM php:8.1-apache
 
-# Copy all project files to the web root directory
-COPY . /var/www/html/
-
-# Enable Apache rewrite module (if needed for routing)
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Expose port 80
+# Install mysqli and other dependencies
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+# Optional: Set working directory
+WORKDIR /var/www/html
+
+# Copy all files to container
+COPY . .
+
+# Expose port (optional)
 EXPOSE 80
