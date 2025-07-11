@@ -83,234 +83,236 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
     <meta charset="UTF-8">
     <title>Book Platform</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <style>
-        :root {
-            --primary-color: #dc143c;
-            --hover-color: rgb(181, 5, 40);
-            --bg-light: #ffffff;
-            --bg-secondary: #f9f9f9;
-            --text-color: #333;
-            --border-radius: 8px;
-        }
+    :root {
+        --primary-color: #dc143c;
+        --hover-color: rgb(181, 5, 40);
+        --bg-light: #ffffff;
+        --bg-secondary: #f9f9f9;
+        --text-color: #333;
+        --border-radius: 8px;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    * {
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-secondary);
-            color: var(--text-color);
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-secondary);
+        color: var(--text-color);
+    }
+
+    .navbar {
+        background-color: var(--primary-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        position: relative;
+
+    }
+
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin-right: 15px;
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        transition: background 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: var(--hover-color);
+    }
+
+    .search-container {
+        margin-top: 10px;
+    }
+
+    .search-container input[type=text] {
+        padding: 8px;
+        border-radius: var(--border-radius);
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 20px;
+        max-width: 1100px;
+        margin: auto;
+    }
+
+    h2 {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    .notification {
+        margin-bottom: 20px;
+        background-color: #e6ffe6;
+        color: green;
+        padding: 10px 15px;
+        border: 1px solid green;
+        border-radius: var(--border-radius);
+    }
+
+    .book-section,
+    .request-section {
+        background-color: var(--bg-light);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+
+    .book-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .download-btn {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 8px 14px;
+        text-decoration: none;
+        font-size: 14px;
+        border-radius: var(--border-radius);
+    }
+
+    .download-btn:hover {
+        background-color: var(--hover-color);
+    }
+
+    .reply-form {
+        margin-top: 10px;
+    }
+
+    .reply-form textarea,
+    .reply-form input[type="file"] {
+        width: 100%;
+        margin-top: 10px;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: var(--border-radius);
+    }
+
+    .reply-form button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        margin-top: 10px;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+    }
+
+    .reply-form button:hover {
+        background-color: var(--hover-color);
+    }
+
+    .pagination a {
+        padding: 8px 12px;
+        margin: 0 4px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: var(--border-radius);
+        transition: background-color 0.3s ease;
+    }
+
+    .pagination a:hover {
+        background-color: var(--hover-color);
+    }
+
+    .menu-toggle {
+        display: none;
+        font-size: 24px;
+        background: none;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .sidebar {
+        display: flex;
+        gap: 10px;
+    }
+
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+        background-color: var(--hover-color);
+    }
+
+    @media (max-width: 768px) {
+        .book-item {
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .navbar {
-            background-color: var(--primary-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            flex-wrap: wrap;
-            position: relative;
-
+            flex-direction: row;
+            align-items: flex-start;
         }
 
         .navbar a {
-            color: white;
-            text-decoration: none;
-            margin-right: 15px;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            transition: background 0.3s;
-        }
-
-        .navbar a:hover {
-            background-color: var(--hover-color);
-        }
-
-        .search-container {
-            margin-top: 10px;
-        }
-
-        .search-container input[type=text] {
-            padding: 8px;
-            border-radius: var(--border-radius);
-            border: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        .container {
-            padding: 20px;
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        h2 {
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-        }
-
-        .notification {
-            margin-bottom: 20px;
-            background-color: #e6ffe6;
-            color: green;
-            padding: 10px 15px;
-            border: 1px solid green;
-            border-radius: var(--border-radius);
-        }
-
-        .book-section,
-        .request-section {
-            background-color: var(--bg-light);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
-
-        .book-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .download-btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 8px 14px;
-            text-decoration: none;
-            font-size: 14px;
-            border-radius: var(--border-radius);
-        }
-
-        .download-btn:hover {
-            background-color: var(--hover-color);
-        }
-
-        .reply-form {
-            margin-top: 10px;
-        }
-
-        .reply-form textarea,
-        .reply-form input[type="file"] {
-            width: 100%;
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-        }
-
-        .reply-form button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            margin-top: 10px;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-        }
-
-        .reply-form button:hover {
-            background-color: var(--hover-color);
-        }
-
-        .pagination a {
-            padding: 8px 12px;
-            margin: 0 4px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: var(--border-radius);
-            transition: background-color 0.3s ease;
-        }
-
-        .pagination a:hover {
-            background-color: var(--hover-color);
+            margin: 5px 0;
         }
 
         .menu-toggle {
-            display: none;
-            font-size: 24px;
-            background: none;
-            color: white;
-            border: none;
-            cursor: pointer;
+            display: block;
         }
 
         .sidebar {
-            display: flex;
-            gap: 10px;
+            display: none;
+            flex-direction: column;
+            background-color: var(--primary-color);
+            width: 100%;
+            position: absolute;
+            top: 70px;
+            left: 0px;
+            z-index: 10;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+            animation: slideDown 0.3s ease;
         }
 
         .sidebar a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: var(--border-radius);
-            transition: background 0.3s;
+            margin: 5px 20px;
         }
 
-        .sidebar a:hover {
-            background-color: var(--hover-color);
+        .sidebar.active {
+            display: flex;
         }
 
-        @media (max-width: 768px) {
-            .book-item {
-                flex-direction: column;
-                align-items: flex-start;
+        @keyframes slideDown {
+            from {
+                opacity: 1;
+                transform: translateY(-10px);
             }
 
-            .navbar {
-                flex-direction: row;
-                align-items: flex-start;
-            }
-
-            .navbar a {
-                margin: 5px 0;
-            }
-
-            .menu-toggle {
-                display:block;
-            }
-
-            .sidebar {
-                display: none;
-                flex-direction: column;
-                background-color: var(--primary-color);
-                width: 100%;
-                position: absolute;
-                top: 70px;
-                left: 0px;
-                z-index: 10;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-                padding-bottom: 10px;
-                animation: slideDown 0.3s ease;
-            }
-
-            .sidebar a {
-                margin: 5px 20px;
-            }
-
-            .sidebar.active {
-                display: flex;
-            }
-
-            @keyframes slideDown {
-                from {
-                    opacity: 1;
-                    transform: translateY(-10px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(10);
-                }
+            to {
+                opacity: 1;
+                transform: translateY(10);
             }
         }
+    }
     </style>
 
 </head>
@@ -334,11 +336,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
             </form>
         </div>
     </div>
+    <!-- notification -->
+     <!-- login -->
+    <?php if (isset($_SESSION['success_msg'])) : ?>
+    <div id="flashMsg" class="toast"><?= htmlspecialchars($_SESSION['success_msg']) ?></div>
+    <script>
+    setTimeout(() => {
+        const msg = document.getElementById("flashMsg");
+        if (msg) {
+            msg.classList.add('fade-out');
+            setTimeout(() => msg.remove(), 500);
+        }
+    }, 1000);
+    </script>
+    <!-- logout -->
+    <?php unset($_SESSION['success_msg']); ?>
+    <?php endif; ?>
+    <?php
+
+if (isset($_SESSION['success_msg'])) {
+    echo "<div id='flashMsg' class='toast'>" . htmlspecialchars($_SESSION['success_msg']) . "</div>";
+    unset($_SESSION['success_msg']);
+
+    //  Session destroy after message shown
+    session_unset();
+    session_destroy();
+}
+?>
+
+
 
     <!-- Book Section -->
     <div class="container">
         <?php if ($notification) : ?>
-            <div class="notification"><?= htmlspecialchars($notification) ?></div>
+        <div class="notification"><?= htmlspecialchars($notification) ?></div>
         <?php endif; ?>
 
         <div class="book-section">
@@ -361,7 +392,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
         <!-- Pagination -->
         <div class="pagination">
             <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                <a href="?page=<?= $i ?>"><?= $i ?></a>
+            <a href="?page=<?= $i ?>"><?= $i ?></a>
             <?php endfor; ?>
         </div>
 
@@ -407,12 +438,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
         <p>&copy; <a href="admin/index.php">2025 </a>Book Platform. All rights reserved.</p>
     </footer>
     <script>
-        const toggleBtn = document.querySelector('.menu-toggle');
-        const sidebar = document.getElementById('sidebar');
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const sidebar = document.getElementById('sidebar');
 
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
-        });
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
     </script>
 
 </body>

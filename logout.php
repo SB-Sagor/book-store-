@@ -1,16 +1,9 @@
 <?php
 session_start();
 
-// Set a logout message
-$_SESSION['logout_message'] = "You have been logged out successfully.";
+$_SESSION['success_msg'] = "Logout successful!";
 
-// Clear all session data
-session_unset();
-session_destroy();
+session_write_close();
 
-// Redirect to homepage or login page
 header("Location: index.php");
-$_SESSION['logout_message'] = "You have been logged out successfully.";
-
 exit();
-?>
