@@ -12,14 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
     $stmt->bind_param("sss", $name, $email, $password);
     if ($stmt->execute()) {
-        $success = "Registration successful!";
-    } else {
+    $success = "Registration successful!";
+    echo "<script>
+        setTimeout(() => {
+            window.location.href = 'index.php';
+        }, 3000);
+    </script>";
+}
+else {
         $error = "Error: " . $stmt->error;
     }
     $stmt->close();
 }
 ?>
-
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>

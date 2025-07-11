@@ -83,8 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
     <meta charset="UTF-8">
     <title>Book Platform</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
+  <style>
     :root {
         --primary-color: #dc143c;
         --hover-color: rgb(181, 5, 40);
@@ -337,7 +336,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
         </div>
     </div>
     <!-- notification -->
-     <!-- login -->
+    <!-- login -->
     <?php if (isset($_SESSION['success_msg'])) : ?>
     <div id="flashMsg" class="toast"><?= htmlspecialchars($_SESSION['success_msg']) ?></div>
     <script>

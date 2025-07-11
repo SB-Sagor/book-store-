@@ -5,5 +5,5 @@ $_SESSION['success_msg'] = "Logout successful!";
 
 session_write_close();
 
-header("Location: index.php");
+header("Location: login.php");
 exit();
