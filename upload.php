@@ -202,7 +202,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="navbar">📚 Open Book — Admin Panel</div>
+    <div class="navbar">📚 Open Book </div>
     <div class="container">
         <div class="content">
             <div class="card">

@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
 
     .container {
         padding: 20px;
-        max-width: 1100px;
+        max-width: 1200px;
         margin: auto;
     }
 
