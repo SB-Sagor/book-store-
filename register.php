@@ -1,134 +1,56 @@
 <?php
-include 'db.php';
+include 'admin/db_conn.php';
 
 $success = "";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
 
-    $stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $name, $email, $password);
-    if ($stmt->execute()) {
-    $success = "Registration successful!";
-    echo "<script>
-        setTimeout(() => {
-            window.location.href = 'index.php';
-        }, 3000);
-    </script>";
-}
-else {
-        $error = "Error: " . $stmt->error;
+    // Check if email already exists
+    $check_stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    $check_stmt->bind_param("s", $email);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+
+    if ($check_stmt->num_rows > 0) {
+        $error = " Email already exists. Try logging in or use a different one.";
+    } else {
+        // Insert new user
+        $insert_stmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        $insert_stmt->bind_param("sss", $name, $email, $password);
+
+        if ($insert_stmt->execute()) {
+            $success = " Registration successful!";
+            echo "<script>
+                setTimeout(() => {
+                    window.location.href = 'index.php';
+                }, 3000);
+            </script>";
+        } else {
+            $error = " Error: " . $insert_stmt->error;
+        }
+
+        $insert_stmt->close();
     }
-    $stmt->close();
+
+    $check_stmt->close();
+    $conn->close();
 }
 ?>
-    
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>User Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        :root {
-            --primary-color: #dc143c;
-            --hover-color:rgb(181, 5, 40);
-            --bg-color: #f5f5f5;
-            --card-color: #ffffff;
-            --text-color: #333;
-            --border-radius: 10px;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .form-container {
-            background-color: var(--card-color);
-            padding: 40px 30px;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 25px;
-            color: var(--text-color);
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: var(--border-radius);
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: var(--hover-color);
-        }
-
-        .login-link {
-            display: block;
-            margin-top: 15px;
-            color: #007bff;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .login-link:hover {
-            text-decoration: underline;
-        }
-
-        .success {
-            color: green;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        @media (max-width: 480px) {
-            .form-container {
-                padding: 30px 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css?v=1.0">
 </head>
+
 <body>
     <div class="form-container">
         <h2>User Registration</h2>
@@ -150,4 +72,5 @@ else {
         </form>
     </div>
 </body>
+
 </html>

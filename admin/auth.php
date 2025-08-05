@@ -1,48 +1,53 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 include "db_conn.php";
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+function sanitize($data)
+{
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
 
-    function validate($data){
-       $data = trim($data);
-       $data = stripslashes($data);
-       $data = htmlspecialchars($data);
-       return $data;
-    }
+function redirectWithError($msg)
+{
+    header("Location: login.php?error=" . urlencode($msg));
+    exit();
+}
 
-    $email = validate($_POST['email']);
-    $pass = validate($_POST['password']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $email = sanitize($_POST['email'] ?? '');
+    $password = sanitize($_POST['password'] ?? '');
 
     if (empty($email)) {
-        header("Location: login.php?error=Email is required");
-        exit();
-    }else if(empty($pass)){
-        header("Location: login.php?error=Password is required");
-        exit();
-    }else{
-     $sql = "SELECT * FROM users WHERE email='$email' AND password='$pass'";
-
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) === 1) {
-            $row = mysqli_fetch_assoc($result);
-            if ($row['email'] === $email && $row['password'] === $pass) {
-                $_SESSION['email'] = $row['email'];
-                $_SESSION['password'] = $row['password'];
-                header("Location: admin.php");
-                exit();
-            }else{
-                header("Location: login.php?error=Incorect Email or password");
-                exit();
-            }
-        }else{
-            header("Location: login.php?error=Incorect Email or password");
-            exit();
-        }
+        redirectWithError("Email is required");
     }
-    
-}else{
-    header("Location: login.php");
-    exit();
+
+    if (empty($password)) {
+        redirectWithError("Password is required");
+    }
+
+    $stmt = $conn->prepare("SELECT email, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+
+        if (password_verify($password, $user['password'])) {
+            session_regenerate_id(true); // Prevent session fixation
+            $_SESSION['email'] = $user['email'];
+            header("Location: admin.php");
+            exit();
+        } else {
+            redirectWithError("Incorrect Email or password");
+        }
+    } else {
+        redirectWithError("Incorrect Email or password");
+    }
+
+    $stmt->close();
+    $conn->close();
+} else {
+    redirectWithError("Invalid request");
 }

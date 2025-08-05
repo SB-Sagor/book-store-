@@ -1,12 +1,12 @@
-<?php  
+<?php
 
 # Form validation function
-function is_empty($var, $text, $location, $ms, $data){
-   if (empty($var)) {
-       # Error message
-       $em = "The ".$text." is required";
-       header("Location: $location?$ms=$em&$data");
-       exit;
-   }
-   return 0;
+function is_empty($var, $field_name, $redirect_to, $message_key = "error", $extra = "")
+{
+    if (empty($var)) {
+        $error_msg = urlencode("The $field_name is required");
+        $query = "$message_key=$error_msg" . ($extra ? "&$extra" : "");
+        header("Location: $redirect_to?$query");
+        exit;
+    }
 }

@@ -1,253 +1,119 @@
-/* books display design  */
-/* Base styles */
+:root {
+  --primary-color: #dc143c;
+  --hover-color: rgb(181, 5, 40);
+  --bg-color: #f5f5f5;
+  --card-color: #ffffff;
+  --text-color: #333;
+  --input-border: #ccc;
+  --focus-border: #dc143c;
+  --link-color: #007bff;
+  --border-radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-}
-
-/* Navbar styles */
-.navbar {
-  background: crimson;
-  font-family: Calibri;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 25px 20px;
-}
-
-.navtext {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-}
-
-.navbar ul {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--bg-color);
   display: flex;
   justify-content: center;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.navbar li {
-  margin: 0 20px;
-  color: white;
-  cursor: pointer;
-  display: flex;
   align-items: center;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  margin-left: 8px;
-  transition: color 0.3s ease;
-}
-
-.navbar li:hover a {
-  color: #ff6666;
-}
-
-.hamburger {
-  display: none;
-  font-size: 30px;
-  cursor: pointer;
-  color: white;
-}
-
-/* Side Drawer styles */
-.drawer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: crimson;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-  z-index: 1001;
-  overflow-y: auto;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-.drawer.open {
-  transform: translateX(0);
-}
-
-.drawer ul {
-  list-style-type: none;
+  height: 100vh;
   padding: 20px;
-  margin: 0;
 }
 
-.drawer ul li {
-  margin: 15px 0;
-  display: flex;
-  align-items: center;
-  background-color: rgb(181, 5, 40);
-  border-radius: 10px;
-}
-
-.drawer ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 12px 20px;
-  display: block;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, padding-left 0.3s ease;
-}
-
-.drawer ul li a:hover {
-  background-color: #9b0e24;
-  padding-left: 25px;
-}
-
-.drawer ul li a.active {
-  background-color: #8c1129;
-  font-weight: bold;
-}
-
-/* Search bar styles */
-.search-bar {
-  display: flex; /* Ensures proper alignment */
-  justify-content: right;
-  padding: 20px;
-  background-color: #f4f4f4;
-}
-
-.search-bar input {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.search-bar button {
-  padding: 10px 15px;
-  margin-left: 10px;
-  background-color: crimson;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.search-bar button:hover {
-  background-color: rgb(190, 8, 44);
-  transform: scale(1.05);
-}
-
-/* Book Section Styles */
-.category-section {
-  margin-left: 40px;
-  /* Space between categories */
-}
-
-.category-section h2 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 15px;
-  text-align: left;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
-}
-
-.book-container {
-  display: flex;
-  overflow-x: auto;
-  gap: 20px;
-  padding: 10px 0;
-}
-
-.book-card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 5px;
-  width: 180px;
-  text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.book-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.book-card img {
+.form-container {
+  background-color: var(--card-color);
+  padding: 40px 30px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
   width: 100%;
-  height: 250px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
-}
-
-.book-card h3 {
-  font-size: 18px;
-  color: #333;
-  margin: 15px 10px 5px;
-}
-
-.book-card .author {
-  font-size: 14px;
-  color: #777;
-  margin: 0 10px 10px;
-}
-
-.book-card .desc {
-  font-size: 13px;
-  color: #555;
-  margin: 10px;
-}
-
-.book-card .download-btn {
-  background: #dc143c;
-  color: white;
-  padding: 10px;
-  border: none;
+  max-width: 400px;
   text-align: center;
-  text-decoration: none;
-  border-radius: 8px;
-  display: inline-block;
-  transition: background 0.3s ease;
 }
 
-.book-card .download-btn:hover {
-  background: rgb(181, 5, 40);
+h2 {
+  margin-bottom: 25px;
+  color: var(--text-color);
+  font-size: 24px;
 }
 
-.details-btn {
-  position: absolute;
-  font-size: 22px;
-  padding: 10px;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--focus-border);
+  box-shadow: 0 0 0 2px rgba(220, 20, 60, 0.2);
+  outline: none;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
   border: none;
-  border-radius: 50px;
-  display: inline-block;
-  margin: 15px 10px;
-  transition: background 0.3s ease;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.book-card .details-btn:hover {
-  background: white;
+button:hover {
+  background-color: var(--hover-color);
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-  .navbar ul {
-    display: none;
-  }
+a.register-link,
+a.login-link {
+  display: block;
+  margin-top: 15px;
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 14px;
+}
 
-  .hamburger {
-    display: block;
+a:hover {
+  text-decoration: underline;
+}
+
+.success {
+  color: green;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.message {
+  color: #dc143c;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 30px 20px;
   }
 }

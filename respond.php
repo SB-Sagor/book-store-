@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "db.php";
+include "admin/add-books.php";
 
 if (!isset($_SESSION['user_id'])) {
     die("Please login first!");
@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $target_dir = "uploads/";
     $file_name = basename($_FILES["book_file"]["name"]);
     $target_file = $target_dir . $file_name;
-    
+
     if (move_uploaded_file($_FILES["book_file"]["tmp_name"], $target_file)) {
         $stmt = $conn->prepare("INSERT INTO book_responses (request_id, user_id, response_message, book_file) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("iiss", $request_id, $user_id, $response_message, $target_file);
-        
+
         if ($stmt->execute()) {
             // Mark request as fulfilled
             $conn->query("UPDATE book_requests SET status='fulfilled' WHERE id=$request_id");
@@ -37,10 +37,12 @@ $request_id = $_GET['request_id'];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Provide Book</title>
 </head>
+
 <body>
     <h2>Provide Book</h2>
     <form method="POST" enctype="multipart/form-data">
@@ -50,4 +52,5 @@ $request_id = $_GET['request_id'];
         <button type="submit">Submit</button>
     </form>
 </body>
+
 </html>
