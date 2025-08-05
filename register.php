@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $success = " Registration successful!";
             echo "<script>
                 setTimeout(() => {
-                    window.location.href = 'index.php';
-                }, 3000);
+                    window.location.href = 'login.php';
+                }, 100);
             </script>";
         } else {
             $error = " Error: " . $insert_stmt->error;

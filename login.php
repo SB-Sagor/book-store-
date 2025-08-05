@@ -2,8 +2,12 @@
 include 'admin/db_conn.php';
 session_start();
 
+$success = '';
+$error = '';
+$redirect = false;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
     $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
@@ -11,28 +15,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($id, $hashed_password);
-    $stmt->fetch();
 
-    if (password_verify($password, $hashed_password)) {
-        $_SESSION['user_id'] = $id;
-        $_SESSION['success_msg'] = "Login successful!";
-        header("Location: index.php");
-        exit();
+    if ($stmt->num_rows > 0) {
+        $stmt->fetch();
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['user_id'] = $id;
+            $success = "Login successful!";
+            $redirect = true; // flag to trigger JS redirect
+        } else {
+            $error = "Incorrect password.";
+        }
     } else {
-        $error = "Invalid login!";
+        $error = "No account found for that email.";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>User Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css?v=1.0">
-
 
 </head>
 
@@ -40,7 +45,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form-container">
         <h2>User Login</h2>
 
-        <?php if (!empty($error)) : ?>
+        <?php if (!empty($success)): ?>
+            <div class="success"><?= htmlspecialchars($success) ?></div>
+        <?php endif; ?>
+
+        <?php if (!empty($error)): ?>
             <div class="error"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
@@ -51,6 +60,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a class="register-link" href="register.php">Don't have an account? Register here</a>
         </form>
     </div>
+
+    <?php if ($redirect): ?>
+        <script>
+            setTimeout(() => {
+                window.location.href = 'index.php';
+            }, 2500);
+        </script>
+    <?php endif; ?>
 </body>
 
 </html>
