@@ -99,15 +99,7 @@ a:hover {
   margin-bottom: 15px;
   font-size: 14px;
 }
-.snackbar {
-  background-color: green;
-  color: white;
-  padding: 16px;
-  border-radius: 6px;
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
+
 
 .error {
   color: red;

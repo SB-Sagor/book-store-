@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
         </div>
         <div class="search-container">
             <form method="GET">
-                <input type="text" placeholder="Search by title, author, or ISBN..." name="search"
+                <input type="text" placeholder="Search by isbn, author, or title..." name="search"
                     value="<?= htmlspecialchars($search) ?>">
                 <button type="submit" class="download-btn">Search</button>
             </form>
@@ -181,9 +181,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
         </div>
     </div>
 
-    <footer class="navbar">
+    <!-- <footer class="navbar">
         <p>&copy; <a href="admin/index.php">2025</a> Book Platform. All rights reserved.</p>
-    </footer>
+    </footer> -->
 
     <script>
         const toggleBtn = document.querySelector('.menu-toggle');
