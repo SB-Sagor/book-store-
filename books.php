@@ -80,25 +80,25 @@ $conn->close();
 
 <body>
     <nav class="navbar">
-        <div class="navtext">Open Book</div>
+        <div class="navtext"><a href="index.php">Open Book</a></div>
         <ul>
-            <li><a href="books.php"><span>📚</span> All Books</a></li>
             <li><a href="index.php"><span>📨</span> Replies</a></li>
             <li><a href="#categories"><span>🏷️</span> Category</a></li>
             <li><a href="upload.php"><span>⏫</span> Upload</a></li>
             <li><a href="request.php"><span>💬</span> Request</a></li>
+            <li><a href="logout.php">🔓 Logout</a></li>
         </ul>
         <div class="hamburger" id="hamburger">&#9776;</div>
     </nav>
 
     <div class="drawer" id="drawer">
         <ul>
-            <li><a href="books.php"><span>📚</span> All Books</a></li>
             <li><a href="login.php"><span>👤</span> Accounts</a></li>
             <li><a href="index.php"><span>📨</span> Replies</a></li>
             <li><a href="#categories"><span>🏷️</span> Category</a></li>
             <li><a href="upload.php"><span>⏫</span> Upload</a></li>
             <li><a href="request.php"><span>💬</span> Request</a></li>
+            <li><a href="logout.php">🔓 Logout</a></li>
         </ul>
     </div>
 

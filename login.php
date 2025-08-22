@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <script>
             setTimeout(() => {
                 window.location.href = 'index.php';
-            }, 2500);
+            }, 1000);
         </script>
     <?php endif; ?>
 </body>

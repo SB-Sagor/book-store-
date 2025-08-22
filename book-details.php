@@ -32,69 +32,34 @@ $conn->close();
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($book['title']) ?> | Book Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="books.css?v=1.0">
-    <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-    }
-
-    .details-container {
-        max-width: 900px;
-        margin: 40px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        gap: 30px;
-        flex-wrap: wrap;
-    }
-
-    .details-container img {
-        width: 220px;
-        border-radius: 12px;
-        object-fit: cover;
-    }
-
-    .details-info {
-        flex: 1;
-        min-width: 250px;
-    }
-
-    .details-info h2 {
-        margin-top: 0;
-        font-size: 28px;
-        color: #333;
-    }
-
-    .details-info p {
-        margin: 10px 0;
-        color: #555;
-        font-size: 16px;
-        line-height: 1.5;
-    }
-
-    .download-btn {
-        margin-top: 20px;
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: crimson;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-weight: bold;
-        transition: background-color 0.3s ease;
-    }
-
-    .download-btn:hover {
-        background-color: rgb(181, 5, 40);
-    }
-    </style>
+    <link rel="stylesheet" href="book-details.css?v=1.0">
 </head>
 
 <body>
+    <nav class="navbar">
+        <div class="navtext"><a href="index.php">Open Book</a></div>
+        <ul>
+            <li><a href="books.php"><span>📚</span> All Books</a></li>
+            <li><a href="index.php"><span>📨</span> Replies</a></li>
+            <li><a href="#categories"><span>🏷️</span> Category</a></li>
+            <li><a href="upload.php"><span>⏫</span> Upload</a></li>
+            <li><a href="request.php"><span>💬</span> Request</a></li>
+            <li><a href="logout.php">🔓 Logout</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">&#9776;</div>
+    </nav>
+
+    <div class="drawer" id="drawer">
+        <ul>
+            <li><a href="books.php"><span>📚</span> All Books</a></li>
+            <li><a href="login.php"><span>👤</span> Accounts</a></li>
+            <li><a href="index.php"><span>📨</span> Replies</a></li>
+            <li><a href="#categories"><span>🏷️</span> Category</a></li>
+            <li><a href="upload.php"><span>⏫</span> Upload</a></li>
+            <li><a href="request.php"><span>💬</span> Request</a></li>
+            <li><a href="logout.php">🔓 Logout</a></li>
+        </ul>
+    </div>
     <div class="details-container">
         <img src="<?= htmlspecialchars($book['cover']) ?>" alt="<?= htmlspecialchars($book['title']) ?> Cover">
 
@@ -106,7 +71,7 @@ $conn->close();
             <p><strong>Description:</strong><br><?= nl2br(htmlspecialchars($book['description'])) ?></p>
 
             <?php if (!empty($book['file'])): ?>
-            <a href="<?= htmlspecialchars($book['file']) ?>" class="download-btn" download>📥 Download Book</a>
+                <a href="<?= htmlspecialchars($book['file']) ?>" class="download-btn" download>📥 Download Book</a>
             <?php endif; ?>
         </div>
     </div>
