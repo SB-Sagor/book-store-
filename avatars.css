@@ -1,0 +1,55 @@
+.avatar-wrapper {
+  position: relative;
+  margin-left: auto;
+  margin-right: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Avatar */
+.avatar-icon-small {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #3498db, 0 0 8px rgba(52, 152, 219, 0.4);
+  transition: all 0.3s ease;
+}
+
+.avatar-icon-small:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px #2980b9, 0 0 12px rgba(41, 128, 185, 0.6);
+}
+
+/* Dropdown */
+.profile-dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  width: 240px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show on hover */
+.avatar-wrapper:hover .profile-dropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Show on click (via JS toggle) */
+.profile-dropdown.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}

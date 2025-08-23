@@ -1,12 +1,26 @@
 <?php
 session_start();
 include 'admin/db_conn.php';
-
+// if (file_exists('admin/uploads/avatars/default-avatar.png')) {
+//     echo "Avatar exists!";
+// } else {
+//     echo "Avatar NOT found!";
+// }
 // Notifications
 $notification = '';
 if (isset($_SESSION['temp_message'])) {
     $notification = $_SESSION['temp_message'];
     unset($_SESSION['temp_message']);
+}
+
+// Profile Fetch
+$profile = null;
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT name, email, avatar, coins FROM users WHERE id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $profile = $stmt->get_result()->fetch_assoc();
 }
 
 // Pagination
@@ -77,7 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
     <meta charset="UTF-8">
     <title>Book Platform</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="avatars.css">
     <link rel="stylesheet" href="index.css">
+
 </head>
 
 <body>
@@ -90,6 +106,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
             <a href="request.php">📝 Request</a>
             <a href="logout.php">🔓 Logout</a>
         </div>
+
+        <?php if ($profile): ?>
+            <div class="avatar-wrapper" onclick="toggleProfileDropdown(event)">
+                <img src="admin/uploads/avatars/<?= htmlspecialchars($profile['avatar'] ?: 'default-avatar.png') ?>"
+                    alt="<?= htmlspecialchars($profile['name']) ?>'s Avatar" class="avatar-icon-small">
+                <div class="profile-dropdown" id="profileDropdown">
+                    <h4><?= htmlspecialchars($profile['name']) ?></h4>
+                    <p><?= htmlspecialchars($profile['email']) ?></p>
+                    <p title="Your current coin balance">💰 Coins: <?= htmlspecialchars($profile['coins']) ?></p>
+                    <hr>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="search-container">
             <form method="GET">
                 <input type="text" placeholder="Search by isbn, author, or title..." name="search"
@@ -97,11 +127,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
                 <button type="submit" class="download-btn">Search</button>
             </form>
         </div>
+
     </div>
 
     <?php if ($notification): ?>
         <div class="notification"><?= htmlspecialchars($notification) ?></div>
     <?php endif; ?>
+
 
     <div class="container">
         <?php if (!empty($search)): ?>
@@ -111,11 +143,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
                     <table class="book-table">
                         <thead>
                             <tr>
-                                <th> Cover</th>
-                                <th> Title</th>
-                                <th> Author</th>
-                                <th> ISBN</th>
-                                <th> Download</th>
+                                <th>Cover</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>ISBN</th>
+                                <th>Download</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,9 +165,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
                             <?php endwhile; ?>
                         </tbody>
                     </table>
-
-
-
                 <?php else: ?>
                     <p>No books found for "<?= htmlspecialchars($search) ?>"</p>
                 <?php endif; ?>
@@ -180,18 +209,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_reply'])) {
             <?php endif; ?>
         </div>
     </div>
-
-    <!-- <footer class="navbar">
-        <p>&copy; <a href="admin/index.php">2025</a> Book Platform. All rights reserved.</p>
-    </footer> -->
-
     <script>
-        const toggleBtn = document.querySelector('.menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+        function toggleProfileDropdown(event) {
+            event.stopPropagation(); // Prevent window click from closing immediately
+            document.getElementById('profileDropdown').classList.toggle('active');
+        }
+
+        window.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('profileDropdown');
+            const avatar = document.querySelector('.avatar-wrapper');
+            if (dropdown && !avatar.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
         });
     </script>
+
+
 </body>
 
 </html>

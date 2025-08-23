@@ -110,6 +110,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             if ($stmt->execute()) {
+                // Add 10 coins to uploader
+                $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+                if ($user_id) {
+                    $coin_stmt = $conn->prepare("UPDATE users SET coins = coins + 10 WHERE id = ?");
+                    $coin_stmt->bind_param("i", $user_id);
+                    $coin_stmt->execute();
+                    $coin_stmt->close();
+                }
+
                 header("Location: upload.php?success=Book added successfully!");
             } else {
                 header("Location: upload.php?error=Database error! Book not added.");

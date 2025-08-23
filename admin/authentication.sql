@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2025 at 06:24 PM
+-- Generation Time: Aug 23, 2025 at 11:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `email`, `password`) VALUES
-(1, 'admin@gmail.com', '123456');
+(1, 'admin@gmail.com', '$2y$10$ZQ3enlf0SbehIzcZoEKBgOlL17jCHNbbFqCRc.hxI.VyWRgEBFCp6');
 
 -- --------------------------------------------------------
 
@@ -57,13 +57,11 @@ CREATE TABLE `authors` (
 
 INSERT INTO `authors` (`id`, `name`) VALUES
 (16, 'Humayun Ahmed'),
-(27, 'sagor'),
-(28, 'asdf'),
-(35, 'fadsf'),
 (36, 'A. Rahman'),
 (37, 'S. Haque'),
 (38, 'M. Karim	'),
-(39, 'MICHAEL OMOYIBO ');
+(39, 'MICHAEL OMOYIBO '),
+(40, 'a');
 
 -- --------------------------------------------------------
 
@@ -89,7 +87,6 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `title`, `description`, `author_id`, `category_id`, `cover`, `file`, `created_at`, `isbn`, `isbn_raw`) VALUES
-(76, 'The IoT Revolution', 'A beginner-friendly guide to building smart devices with microcontrollers.', 36, 45, 'admin/uploads/covers/689193ea5ce6f_8InternetofthingsAuthorJordiSalazarandSantiagoSilvestre-thumbnail-88628.jpg', 'admin/uploads/books/689193ea5ce75_8. Internet of things Author Jordi Salazar and Santiago Silvestre.pdf', '2025-08-05 05:17:30', '9781234567897', '978-1-234567-89-7'),
 (77, 'Competitive Coding Mastery', 'Learn advanced problem-solving techniques for contests like Codeforces.', 37, 46, 'admin/uploads/covers/6891948738791_cp.jpg', 'admin/uploads/books/689194873879b_book.pdf', '2025-08-05 05:20:07', '9780987654321', '978-0-987654-32-1'),
 (78, 'Embedded Systems Unlocked', 'Linux® is being adopted by an increasing number of embedded systems developers, who have been won over by its sophisticated scheduling and networking, its cost-free license, its open development model, and the support offered by rich and powerful programming tools. While there is a great deal of hype surrounding the use of Linux in embedded systems, there is not a lot of practical information. Building Embedded Linux Systems is the first in-depth, hard-core guide to putting together an embedded system based on the Linux kernel. ', 38, 47, 'admin/uploads/covers/6891956635b05_51hiep-B0mL._SY445_SX342_.jpg', 'admin/uploads/books/6891956635b09_esys.ir_Building.Embedded.Linux.Systems.2nd.Edition.pdf', '2025-08-05 05:23:50', '9781111111111', '978-1-111111-11-1'),
 (79, 'The IoT Revolution in Healthcare', 'The evolution of healthcare technologies has undergone significant transformations over the past few decades, driven by advancements in digital innovations and the increasing integration of IoT (Internet of Things) technologies. Initially, healthcare was dominated by traditional practices that relied heavily on face-to-face consultations and paper-based record-keeping. As the digital age emerged, the introduction of electronic health records (EHRs) marked a pivotal point, allowing for improved data management and accessibility. This shift streamlined administrative processes and laid the groundwork for more sophisticated healthcare technologies, including body sensor networks and wearable devices.', 39, 45, 'admin/uploads/covers/6891961c3e293_71vo01WrrdL._SY522_.jpg', 'admin/uploads/books/6891961c3e297_IoT-Based-Biometric-Attendance-System-using-Fingerprint-Sensor.pdf', '2025-08-05 05:26:52', '9798314577141', '9798314577141');
@@ -151,10 +148,10 @@ INSERT INTO `category` (`id`, `name`) VALUES
 (16, 'Database Management System'),
 (30, 'cse'),
 (31, 'kobita'),
-(44, 'asfa'),
 (45, 'Technology'),
 (46, 'Programming'),
-(47, 'Engineering');
+(47, 'Engineering'),
+(48, 'a');
 
 -- --------------------------------------------------------
 
@@ -166,16 +163,18 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
+  `password` varchar(255) DEFAULT NULL,
+  `coins` int(11) DEFAULT 10,
+  `avatar` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
-(7, 'Sagor Hassan', 'sheikhsagor725@gmail.com', '$2y$10$Nwg9y5SCHAnqCDM204hjeuXsobsQP1Sruu5GOB6xubN4Vrwlb8hpu'),
-(8, 'd', 'd@example.com', '$2y$10$.rpVnHPRwTNUsm3qjaguLuX3kOb6uY56rpMsW6lN2/RHs.WNGkpQi');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `coins`, `avatar`) VALUES
+(7, 'Sagor Hassan', 'sheikhsagor725@gmail.com', '$2y$10$Nwg9y5SCHAnqCDM204hjeuXsobsQP1Sruu5GOB6xubN4Vrwlb8hpu', 10, 'default-avatar.png'),
+(8, 'd', 'd@example.com', '$2y$10$.rpVnHPRwTNUsm3qjaguLuX3kOb6uY56rpMsW6lN2/RHs.WNGkpQi', 10, 'default-avatar.png');
 
 --
 -- Indexes for dumped tables
@@ -241,13 +240,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `book_replies`
@@ -259,13 +258,13 @@ ALTER TABLE `book_replies`
 -- AUTO_INCREMENT for table `book_requests`
 --
 ALTER TABLE `book_requests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `users`

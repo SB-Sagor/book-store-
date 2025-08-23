@@ -1,5 +1,19 @@
 <?php
+session_start();
 include "admin/db_conn.php";
+
+$profile = null;
+if (isset($_SESSION['user_id'])) {
+    $stmt = $conn->prepare("SELECT name, email, avatar, coins FROM users WHERE id = ?");
+    $stmt->bind_param("i", $_SESSION['user_id']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result && $result->num_rows > 0) {
+        $profile = $result->fetch_assoc();
+    }
+    $stmt->close();
+}
+
 
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $searchClean = str_replace("-", "", $search);
@@ -76,41 +90,45 @@ $conn->close();
     <title>Open Book</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="books.css">
+    <link rel="stylesheet" href="avatars.css">
+    <link rel="stylesheet" href="index.css">
+
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="navtext"><a href="index.php">Open Book</a></div>
-        <ul>
-            <li><a href="index.php"><span>📨</span> Replies</a></li>
-            <li><a href="#categories"><span>🏷️</span> Category</a></li>
-            <li><a href="upload.php"><span>⏫</span> Upload</a></li>
-            <li><a href="request.php"><span>💬</span> Request</a></li>
-            <li><a href="logout.php">🔓 Logout</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger">&#9776;</div>
-    </nav>
+    <div class="navbar">
+        <button class="menu-toggle">&#9776;</button>
+        <div class="sidebar" id="sidebar">
+            <a href="index.php">📨 Replies</a>
+            <a href="#categories.php">🏷️ Category</a>
+            <a href="upload.php">⏫ Upload</a>
+            <a href="request.php">💬 Request</a>
+            <a href="logout.php">🔓 Logout</a>
+        </div>
 
-    <div class="drawer" id="drawer">
-        <ul>
-            <li><a href="login.php"><span>👤</span> Accounts</a></li>
-            <li><a href="index.php"><span>📨</span> Replies</a></li>
-            <li><a href="#categories"><span>🏷️</span> Category</a></li>
-            <li><a href="upload.php"><span>⏫</span> Upload</a></li>
-            <li><a href="request.php"><span>💬</span> Request</a></li>
-            <li><a href="logout.php">🔓 Logout</a></li>
-        </ul>
-    </div>
+        <?php if ($profile): ?>
+            <div class="avatar-wrapper" onclick="toggleProfileDropdown(event)">
+                <img src="admin/uploads/avatars/<?= htmlspecialchars($profile['avatar'] ?: 'default-avatar.png') ?>"
+                    alt="<?= htmlspecialchars($profile['name']) ?>'s Avatar" class="avatar-icon-small">
+                <div class="profile-dropdown" id="profileDropdown">
+                    <h4><?= htmlspecialchars($profile['name']) ?></h4>
+                    <p><?= htmlspecialchars($profile['email']) ?></p>
+                    <p title="Your current coin balance">💰 Coins: <?= htmlspecialchars($profile['coins']) ?></p>
+                    <hr>
+                </div>
+            </div>
+        <?php endif; ?>
 
-    <section>
-        <div class="search-bar">
+        <div class="search-container">
             <form method="GET">
-                <input type="text" name="search" placeholder="Search for books, authors, categories..."
+                <input type="text" placeholder="Search by isbn, author, or title..." name="search"
                     value="<?= htmlspecialchars($search) ?>">
-                <button type="submit">Search</button>
+                <button type="submit" class="download-btn">Search</button>
             </form>
         </div>
-    </section>
+
+    </div>
+
 
     <section>
         <?php if (!empty($booksByCategory)): ?>
