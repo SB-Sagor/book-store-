@@ -43,17 +43,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Category</title>
 </head>
+
 <body>
     <h2>Edit Category</h2>
     <?php if (isset($_GET['error'])): ?>
-        <p style="color: red;"><?= $_GET['error']; ?></p>
+    <p style="color: red;"><?= $_GET['error']; ?></p>
     <?php endif; ?>
     <form method="POST">
         <input type="text" name="category_name" value="<?= htmlspecialchars($category['name']); ?>">
         <button type="submit">Update</button>
     </form>
 </body>
-</html>
+
+</html>z

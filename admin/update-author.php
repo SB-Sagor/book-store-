@@ -9,7 +9,7 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     if ($result->num_rows == 1) {
         $author = $result->fetch_assoc();
     } else {
@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['author_name'];
-    
+
     if (!empty($name)) {
         $sql = "UPDATE authors SET name = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
@@ -43,9 +43,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Author</title>
 </head>
+
 <body>
     <h2>Edit Author</h2>
     <form method="POST">
@@ -53,4 +55,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit">Update</button>
     </form>
 </body>
+
 </html>

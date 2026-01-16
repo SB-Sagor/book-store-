@@ -15,8 +15,8 @@ function redirectWithError($msg)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $email = sanitize($_POST['email'] ?? '');
-    $password = sanitize($_POST['password'] ?? '');
+    $email    = sanitize($_POST['email'] ?? '');
+    $password = $_POST['password'] ?? ''; // password ke sanitize kora dorkar nai
 
     if (empty($email)) {
         redirectWithError("Email is required");
@@ -27,16 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt = $conn->prepare("SELECT email, password FROM admin WHERE email = ?");
+    if (!$stmt) {
+        redirectWithError("Query prepare failed");
+    }
+
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result->num_rows === 1) {
+    if ($result && $result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        echo "Entered password: " . $password . "<br>";
-        echo "Stored hash: " . $user['password'] . "<br>";
-        var_dump(password_verify($password, $user['password']));
-        exit();
 
         if (password_verify($password, $user['password'])) {
             session_regenerate_id(true); // Prevent session fixation

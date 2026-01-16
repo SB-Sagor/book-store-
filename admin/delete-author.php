@@ -4,11 +4,11 @@ include "db_conn.php";
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    
+
     $sql = "DELETE FROM authors WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
-    
+
     if ($stmt->execute()) {
         header("Location: admin.php?success=Author deleted!");
     } else {
@@ -19,4 +19,3 @@ if (isset($_GET['id'])) {
     header("Location: admin.php");
     exit;
 }
-?>

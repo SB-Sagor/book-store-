@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Add Book - Admin Panel</title>
-    <link rel="stylesheet" href="addbooks.css">
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
