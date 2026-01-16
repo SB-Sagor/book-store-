@@ -71,7 +71,9 @@ $conn->close();
             <p><strong>Description:</strong><br><?= nl2br(htmlspecialchars($book['description'])) ?></p>
 
             <?php if (!empty($book['file'])): ?>
-                <a href="<?= htmlspecialchars($book['file']) ?>" class="download-btn" download>📥 Download Book</a>
+                <a href="<?= htmlspecialchars($book['file']) ?>" class="download-btn" download>📥 Download Book</a> <a
+                    href="read.php?id=<?= $book['id'] ?>" class="download-btn">📖 Read Books</a>
+
             <?php endif; ?>
         </div>
     </div>
