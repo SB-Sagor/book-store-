@@ -95,7 +95,7 @@ body {
 
 .sidebar li:hover,
 .sidebar li.active {
-  background-color: #276d7c;
+  background-color: #497e8a;
   color: var(--primary-color);
   font-weight: bold;
 }
