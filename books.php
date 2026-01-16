@@ -1,7 +1,7 @@
 <?php
 session_start();
 include "admin/db_conn.php";
-include "config.php"; // load API key
+include "api/config.php"; // load API key
 
 function getCachedApiBooks($filename, $query)
 {
