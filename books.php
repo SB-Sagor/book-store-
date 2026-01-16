@@ -100,7 +100,7 @@ $conn->close();
         <button class="menu-toggle">&#9776;</button>
         <div class="sidebar" id="sidebar">
             <a href="index.php">📨 Replies</a>
-            <a href="#categories.php">🏷️ Category</a>
+            <a href="books.php">📚 All-Books</a>
             <a href="upload.php">⏫ Upload</a>
             <a href="request.php">💬 Request</a>
             <a href="logout.php">🔓 Logout</a>
