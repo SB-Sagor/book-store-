@@ -32,7 +32,7 @@ $conn->close();
     <meta charset="UTF-8">
     <title><?= htmlspecialchars($book['title']) ?> | Book Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="book-details.css?v=1.0">
+    <link rel="stylesheet" href="book-details.css">
 </head>
 
 <body>
@@ -72,7 +72,7 @@ $conn->close();
 
             <?php if (!empty($book['file'])): ?>
                 <a href="<?= htmlspecialchars($book['file']) ?>" class="download-btn" download>📥 Download Book</a> <a
-                    href="read.php?id=<?= $book['id'] ?>" class="download-btn">📖 Read Books</a>
+                    href="read.php?id=<?= $book['id'] ?>" class="read-btn">📖 Read Books</a>
 
             <?php endif; ?>
         </div>
